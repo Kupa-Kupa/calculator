@@ -73,14 +73,16 @@ main {
     grid-column: span 4;
 }
 
-#calc-display > p.display-output {
+#calc-display > p.display-calculation {
     margin: 10px 10px 5px 10px;
     font-size: 1.1em;
+    min-height: 21px;
 }
 
 #calc-display > p.display-input {
     margin: 5px 10px 10px 10px;
     font-size: 1.5em;
+    min-height: 27px;
 }
 
 

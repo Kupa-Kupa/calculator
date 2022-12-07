@@ -3,40 +3,156 @@ const operations = {
     times: '*',
     minus: '-',
     plus: '+',
-    equals: '=',
     mod: '%',
     power: '**',
     decimal: '.',
+    equals: '=',
 }
 
 let currentInput = null;
 
 let previousValue = null;
 
+let result = null;
+
 let operator = null;
 
-console.log(Boolean(operator && (currentInput || currentInput == 0) && (previousValue || previousValue == 0)));
+// console.log(Boolean(operator && (currentInput || currentInput == 0) && (previousValue || previousValue == 0)));
+
+let displayArray = [];
+// console.log(displayArray.join(''));
 
 
 
-// elements
+// display
 
 let displayInput = document.querySelector('.display-input');
-console.log(displayInput);
+
+let displayCalculation = document.querySelector('.display-calculation');
 
 
-let displayArray = [1, 2, 3, 4, 5];
-console.log(displayArray.join(''));
+// buttons
+
+let divideButton = document.querySelector('button#divide');
+let timesButton = document.querySelector('button#times');
+let minusButton = document.querySelector('button#minus');
+let plusButton = document.querySelector('button#plus');
+let equalsButton = document.querySelector('button#equals');
+let modButton = document.querySelector('button#mod');
+let powerButton = document.querySelector('button#power');
+
+let deleteButton = document.querySelector('button#delete');
+let backspaceButton = document.querySelector('button#backspace');
 
 
-let displayString = displayArray.join('');
-console.log(displayString);
+let zeroButton = document.querySelector('button#zero');
+let oneButton = document.querySelector('button#one');
+let twoButton = document.querySelector('button#two');
+let threeButton = document.querySelector('button#three');
+let fourButton = document.querySelector('button#four');
+let fiveButton = document.querySelector('button#five');
+let sixButton = document.querySelector('button#six');
+let sevenButton = document.querySelector('button#seven');
+let eightButton = document.querySelector('button#eight');
+let nineButton = document.querySelector('button#nine');
+
+let decimalButton = document.querySelector('button#decimal');
+
+zeroButton.addEventListener('click', event => {
+    displayArray.push(0);
+    displayInput.textContent = displayArray.join('');
+    // currentInput = Number(displayArray.join(''));
+});
+
+oneButton.addEventListener('click', event => {
+    displayArray.push(1);
+    displayInput.textContent = displayArray.join('');
+});
+
+twoButton.addEventListener('click', event => {
+    displayArray.push(2);
+    displayInput.textContent = displayArray.join('');
+});
+
+threeButton.addEventListener('click', event => {
+    displayArray.push(3);
+    displayInput.textContent = displayArray.join('');
+});
+
+fourButton.addEventListener('click', event => {
+    displayArray.push(4);
+    displayInput.textContent = displayArray.join('');
+});
+
+fiveButton.addEventListener('click', event => {
+    displayArray.push(5);
+    displayInput.textContent = displayArray.join('');
+});
+
+sixButton.addEventListener('click', event => {
+    displayArray.push(6);
+    displayInput.textContent = displayArray.join('');
+});
+
+sevenButton.addEventListener('click', event => {
+    displayArray.push(7);
+    displayInput.textContent = displayArray.join('');
+});
+
+eightButton.addEventListener('click', event => {
+    displayArray.push(8);
+    displayInput.textContent = displayArray.join('');
+});
+
+nineButton.addEventListener('click', event => {
+    displayArray.push(9);
+    displayInput.textContent = displayArray.join('');
+});
 
 
-console.log(displayInput.textContent);
+
+
+divideButton.addEventListener('click', event => {
+    operatorButtonClick(event) 
+});
+
+timesButton.addEventListener('click', event => {
+    operatorButtonClick(event) 
+});
+
+minusButton.addEventListener('click', event => {
+    operatorButtonClick(event) 
+});
+
+plusButton.addEventListener('click', event => {
+    operatorButtonClick(event) 
+});
+
+powerButton.addEventListener('click', event => {
+    operatorButtonClick(event) 
+});
+
+modButton.addEventListener('click', event => {
+    operatorButtonClick(event);
+});
+
+
+// Equals button
+equalsButton.addEventListener('click', event => {
+    equals();
+});
+
+
+backspaceButton.addEventListener('click', event => {
+    backspace();
+});
+
+
+
+// console.log(displayInput.textContent);
 
 // displayInput.textContent = `${displayString}`;
-displayInput.textContent = displayArray.join('');
+// displayInput.textContent = displayArray.join('');
 
 
 // on operator click
@@ -53,38 +169,72 @@ displayInput.textContent = displayArray.join('');
 // currentInput = /* displayed number */ 5 ;
 
 // 4 - check if it should operate
-if  (operator && (currentInput || currentInput == 0) && 
-    (previousValue || previousValue == 0)) {
+// if  (operator && (currentInput || currentInput == 0) && 
+//     (previousValue || previousValue == 0)) {
 
-    // run operation
-    operate(operator, previousValue, currentInput);
+//     // run operation
+//     operate(operator, previousValue, currentInput);
 
-}
-
-
+// }
 
 
-console.log(operations.plus);
+// console.log(operations.plus);
 
 
 function add(num1, num2) {
     return num1 + num2;
 }
 
-console.log(add(3,4));
+function minus(num1, num2) {
+    return num1 - num2;
+}
 
+function times(num1, num2) {
+    return num1 * num2;
+}
+
+function divide(num1, num2) {
+    return num1 / num2;
+}
+
+function power(num1, num2) {
+    return num1 ** num2;
+}
+
+function mod(num1, num2) {
+    return num1 % num2;
+}
 
 
 function equals() {
 
-    if  (operator && (currentInput || currentInput == 0) && 
-    (previousValue || previousValue == 0)) {
+    previousValue = currentInput;
+    console.log(`previousValue is: ${previousValue}`);
 
-    // run operation
+    // currentInput = null;
+    currentInput = Number(displayArray.join(''));
+    // currentInput = Number(displayInput.textContent);
+    console.log(`currentInput is: ${currentInput}`);
+
+    displayArray = [];
+    console.log(displayArray);
+
     operate(operator, previousValue, currentInput);
 
-}
+    // showDisplayCalculation();
 
+
+    // if  (operator && (currentInput || currentInput == 0) && 
+    // (previousValue || previousValue == 0)) {
+
+    //     // run operation
+    //     operate(operator, previousValue, currentInput);
+
+    // }
+
+    // if (previousValue === null) {
+    //     previousValue = currentInput;
+    // }
 }
 
 
@@ -102,6 +252,9 @@ function reset() {
 
 
 function backspace() {
+    displayArray.pop();
+    displayInput.textContent = displayArray.join('');
+
     // remove last number from display
     // convert string to array and remove last value
 }
@@ -114,9 +267,106 @@ function backspace() {
 
 function operate(operator, num1, num2) {
 
-    if(operator === operations.plus) {
-        return add(num1, num2);
+    if (operator === operations.plus) {
+
+        // showDisplayCalculation();
+        // currentInput = add(num1, num2);
+        // displayInput.textContent = currentInput;
+
+        
+        result = add(num1, num2);
+        displayInput.textContent = result;
+
+        // if (currentInput !== null) {
+        //     showDisplayCalculation();
+        // }
+        showDisplayCalculation();
+        previousValue = null;
+        currentInput = result;
+        console.log(displayArray);
+
+    } else if (operator === operations.minus) {
+
+
+
+    } else if (operator === operations.times) {
+
+
+        
+    } else if (operator === operations.divide) {
+
+
+        
+    } else if (operator === operations.mod) {
+
+
+        
+    } else if (operator === operations.power) {
+
+
+        
+    }
+
+}
+
+
+
+function operatorButtonClick(event) {
+    // on operator click
+    // 1 - set operator
+
+    // if (operations[event.target.id] !== '=') {
+    //     operator = operations[event.target.id];
+    // }
+
+    operator = operations[event.target.id];
+    
+    console.log(`operator is: ${operator}`);
+
+    // 2 - set previousValue
+
+    previousValue = currentInput;
+    console.log(`previousValue is: ${previousValue}`);
+
+    // 3 - set currentInput
+
+    currentInput = Number(displayArray.join(''));
+    // currentInput = Number(displayInput.textContent);
+    console.log(`currentInput is: ${currentInput}`);
+
+    // 4 - check if it should operate
+
+    //@@@@@@this needs updating @@@@@@@@@
+
+    if  (operator && (currentInput || currentInput == 0) && 
+    (previousValue || previousValue == 0)) {
+
+        // run operation
+        operate(operator, previousValue, currentInput);
+    } else {
+        showDisplayCalculation();
+    }
+
+    // 5 - reset display array
+    displayArray = [];
+    console.log(displayArray);
+}
+
+
+
+
+function showDisplayCalculation() {
+    if (displayCalculation.textContent === '' && previousValue === null) {
+
+        displayCalculation.textContent = `${currentInput} ${operator}`;
+
+    } else {
+
+        displayCalculation.textContent = `${previousValue} ${operator} ${currentInput} = ${result}`;
+
     }
 }
 
-console.log(operate(operations.plus, 6, 10));
+
+
+
