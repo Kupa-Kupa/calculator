@@ -1,0 +1,134 @@
+:root {
+    --calc-background: rgb(238, 238, 238);
+    --calc-display-background: rgb(252, 252, 252);
+
+    --operator-background: rgb(244, 247, 253);
+    --operator-background-hover: rgb(170, 188, 226);
+
+
+    --equals-background: rgb(27, 167, 39);
+    --equals-background-hover: rgb(10, 135, 20);
+
+
+    --number-background: rgb(213, 217, 223);
+    --number-background-hover: rgb(180, 180, 180);
+
+
+    --red-background: rgb(216, 12, 12);
+    --red-background-hover: rgb(200, 0, 0);
+}
+
+
+body {
+    margin: 0;
+
+    height: 100vh;
+    background-color: var(--calc-display-background);
+
+    text-align: center;
+}
+
+header {
+    margin-top: 30px;
+}
+
+footer {
+    padding: 30px;
+}
+
+/* don't really need flexbox for this */
+/* main {
+    min-height: 700px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1;
+} */
+
+
+
+main {
+    margin: auto;
+    max-width: 360px;
+}
+
+.container {
+    background-color: var(--calc-background);
+    padding: 20px;
+    border-radius: 1em;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+}
+
+
+
+#calc-display {
+    background-color: var(--calc-display-background);
+    text-align: end;
+    border: solid 2px black;
+    grid-column: span 4;
+}
+
+#calc-display > p.display-output {
+    margin: 10px 10px 5px 10px;
+    font-size: 1.1em;
+}
+
+#calc-display > p.display-input {
+    margin: 5px 10px 10px 10px;
+    font-size: 1.5em;
+}
+
+
+
+button {
+    width: 70px;
+    height: 70px;
+    /* border: solid 1px black; */
+    border: none;
+    background-color: var(--number-background);
+
+    font-size: 1em;
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: var(--number-background-hover);
+}
+
+
+
+.operator > button {
+    background-color: var(--operator-background);
+}
+
+.operator > button:hover {
+    background-color: var(--operator-background-hover);
+}
+
+
+
+.delete > button, .backspace > button {
+    background-color: var(--red-background);
+    color: white;
+}
+
+.delete > button:hover, .backspace > button:hover {
+    background-color: var(--red-background-hover);
+}
+
+
+
+.equals > button {
+    background-color: var(--equals-background);
+    color: white;
+}
+
+.equals > button:hover {
+    background-color: var(--equals-background-hover);
+}
+
