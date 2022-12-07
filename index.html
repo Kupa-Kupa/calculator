@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="./scripts/scripts.js"></script>
+    <script src="./scripts/scripts.js" defer></script>
+    <!-- must always defer script tag or dom manipulation will fail -->
     <title>Calculator</title>
 </head>
 <body>
@@ -74,7 +75,7 @@
             </div>
 
             <div class="operator">
-                <button id="multiply" class="number">&times;</button>
+                <button id="times" class="number">&times;</button>
             </div>
 
 
@@ -92,7 +93,7 @@
             </div>
 
             <div class="operator">
-                <button id="subtract" class="number">&minus;</button>
+                <button id="minus" class="number">&minus;</button>
             </div>
 
             
@@ -110,7 +111,7 @@
             </div>
             
             <div class="operator">
-                <button id="add" class="number">&plus;</button>
+                <button id="plus" class="number">&plus;</button>
             </div>
 
 
