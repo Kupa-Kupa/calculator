@@ -1,12 +1,12 @@
 // VARIABLES
 
 const operations = {
-    divide: '/',
-    times: '*',
+    divide: `${String.fromCodePoint(0xF7)}`,
+    times: `${String.fromCodePoint(0xD7)}`,
     minus: '-',
     plus: '+',
     mod: '%',
-    power: '**',
+    power: '^',
     decimal: '.',
     equals: '=',
 }
@@ -65,8 +65,18 @@ let decimalButton = document.querySelector('button#decimal');
 
 // for number buttons
 
+decimalButton.addEventListener('click', event => {
+    if (displayArray.length < 22 && displayArray.indexOf('.') === -1) {
+        displayArray.push('.');
+        displayInput.textContent = displayArray.join('');
+        currentInput = Number(displayArray.join(''));
+        console.log(`currentInput is: ${currentInput}`);
+    }
+});
+
+
 zeroButton.addEventListener('click', event => {
-    if (displayArray.length < 22 && displayArray.length !== 0) {
+    if (displayArray.length < 22 && displayArray[0] !== 0) {
         displayArray.push(0);
         displayInput.textContent = displayArray.join('');
         currentInput = Number(displayArray.join(''));
@@ -75,6 +85,10 @@ zeroButton.addEventListener('click', event => {
 });
 
 oneButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+
     if (displayArray.length < 22) {
         displayArray.push(1);
         displayInput.textContent = displayArray.join('');
@@ -84,6 +98,10 @@ oneButton.addEventListener('click', event => {
 });
 
 twoButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+
     if (displayArray.length < 22) {
         displayArray.push(2);
         displayInput.textContent = displayArray.join('');
@@ -93,6 +111,10 @@ twoButton.addEventListener('click', event => {
 });
 
 threeButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(3);
         displayInput.textContent = displayArray.join('');
@@ -102,6 +124,10 @@ threeButton.addEventListener('click', event => {
 });
 
 fourButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(4);
         displayInput.textContent = displayArray.join('');
@@ -111,6 +137,10 @@ fourButton.addEventListener('click', event => {
 });
 
 fiveButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(5);
         displayInput.textContent = displayArray.join('');
@@ -120,6 +150,10 @@ fiveButton.addEventListener('click', event => {
 });
 
 sixButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(6);
         displayInput.textContent = displayArray.join('');
@@ -129,6 +163,10 @@ sixButton.addEventListener('click', event => {
 });
 
 sevenButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(7);
         displayInput.textContent = displayArray.join('');
@@ -138,6 +176,10 @@ sevenButton.addEventListener('click', event => {
 });
 
 eightButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(8);
         displayInput.textContent = displayArray.join('');
@@ -147,6 +189,10 @@ eightButton.addEventListener('click', event => {
 });
 
 nineButton.addEventListener('click', event => {
+    if(displayArray[0] === 0 && displayArray[1] !== '.') {
+        displayArray.pop();
+    }
+    
     if (displayArray.length < 22) {
         displayArray.push(9);
         displayInput.textContent = displayArray.join('');
@@ -228,7 +274,11 @@ function times(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    if (num2 === 0 ) {
+        return "undefined mate";
+    } else {
+        return num1 / num2;
+    }
 }
 
 function power(num1, num2) {
@@ -289,6 +339,11 @@ function equals() {
     operator = null;
     console.log(`operator reset to: ${operator}`);
 
+
+    if (previousValue === 'undefined mate') {
+        reset();
+        displayCalculation.textContent = `That's undefined mate`;
+    }
 
 
     // showDisplayCalculation();
@@ -368,6 +423,10 @@ function operatorButtonClick(event) {
     console.log(displayArray);
 
 
+    if (previousValue === 'undefined mate') {
+        reset();
+        displayCalculation.textContent = `That's undefined mate`;
+    }
     
     // 2 - set currentInput - this is now done on number button click
 
@@ -395,9 +454,6 @@ function operate(operator, num1, num2) {
 
         showDisplayCalculation();
 
-        // previousValue = null;
-        // console.log(`previous value reset to: ${previousValue}`);
-
         currentInput = result;
         console.log(`currentInput set to result`);
         console.log(`currentInput is: ${currentInput}`);
@@ -406,25 +462,96 @@ function operate(operator, num1, num2) {
         console.log(displayArray);
 
     } else if (operator === operations.minus) {
-    } else if (operator === operations.times) { 
+
+        console.log(`calculate result:`);
+
+        result = minus(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
+    } else if (operator === operations.times) {
+
+        console.log(`calculate result:`);
+
+        result = times(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
     } else if (operator === operations.divide) {
+
+        console.log(`calculate result:`);
+
+        result = divide(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
     } else if (operator === operations.mod) {
+
+        console.log(`calculate result:`);
+
+        result = mod(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
     } else if (operator === operations.power) {
+
+        console.log(`calculate result:`);
+
+        result = power(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-function operatorClicked() {
-
 }
 
 
@@ -457,6 +584,14 @@ function showDisplayCalculation() {
     } else if (previousValue !== null && currentInput !== null && operator === null) {
 
         displayCalculation.textContent = `${currentInput}`;
+
+    } else if (previousValue === null && currentInput === null && operator !== null && result === null) {
+
+        displayCalculation.textContent = ``;
+
+    } else if (previousValue === null && currentInput === null && operator === null && result === null) {
+
+        displayCalculation.textContent = ``;
 
     } else {
 
