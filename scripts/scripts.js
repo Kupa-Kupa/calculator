@@ -19,6 +19,8 @@ let result = null;
 
 let operator = null;
 
+let previousOperator = null;
+
 let displayArray = [];
 
 
@@ -257,6 +259,94 @@ deleteButton.addEventListener('click', event => {
 
 
 
+
+
+
+
+// KEYBOARD EVENTLISTENERS
+
+
+window.addEventListener('keydown', event => {
+
+    console.log(event);
+    console.log(event.key);
+    console.log(event.code);
+
+    if (event.key === '.' || event.key === '\x00') {
+
+        if (displayArray.length < 22 && displayArray.indexOf('.') === -1) {
+            displayArray.push('.');
+            displayInput.textContent = displayArray.join('');
+            currentInput = Number(displayArray.join(''));
+            console.log(`currentInput is: ${currentInput}`);
+        }
+
+    } else if (event.code === 'Space') {
+        console.log('spacebar');
+        event.preventDefault();
+
+    } else if (event.key === 'Enter' || event.key === '=') {
+        event.preventDefault();
+        equals();
+
+    } else if (event.key === '/') {
+        event.preventDefault();
+
+        operator = operations['divide'];
+        // console.log(operator);
+        // console.log(event.target);
+        // console.log(event.target.id);
+        operatorButtonClick(event);
+
+    } else if (event.key === '*') {
+        event.preventDefault();
+
+        operator = operations['times'];
+        operatorButtonClick(event);
+
+    } else if (event.key === '+') {
+        event.preventDefault();
+
+        operator = operations['plus'];
+        operatorButtonClick(event);
+
+    } else if (event.key === '-') {
+        event.preventDefault();
+
+        operator = operations['minus'];
+        operatorButtonClick(event);
+
+    } else if (Number(event.key) === 0) {
+
+        if (displayArray.length < 22 && displayArray[0] !== 0) {
+            displayArray.push(0);
+            displayInput.textContent = displayArray.join('');
+            currentInput = Number(displayArray.join(''));
+            console.log(`currentInput is: ${currentInput}`);
+        }
+
+    } else if (Number(event.key) > 0) {
+
+        if(displayArray[0] === 0 && displayArray[1] !== '.') {
+            displayArray.pop();
+        }
+        
+        if (displayArray.length < 22) {
+            displayArray.push(Number(event.key));
+            displayInput.textContent = displayArray.join('');
+            currentInput = Number(displayArray.join(''));
+            console.log(`currentInput is: ${currentInput}`);
+        }
+    }
+    
+});
+
+
+
+
+
+
+
 // FUNCTIONS
 
 // operators
@@ -369,7 +459,19 @@ function operatorButtonClick(event) {
     result in a calculation which seems like it would be unwanted?:
     3 + 6 = 3 + => this will equal 12 */
     // this seems the better option
-    operator = operations[event.target.id];
+    /* looks like it's actually a big issue
+    The following clicks will result in an unexpected calculation:
+    3 + 3 * => this will equal 3 * 3 */
+
+    // previousOperator = operator;
+    // console.log(`previousOperator is: ${previousOperator}`);
+
+    if(event.target.id !== '') {
+        operator = operations[event.target.id];
+    }
+
+    
+
     console.log(`operator is: ${operator}`);
 
     console.log(`currentInput is: ${currentInput}`);
@@ -377,6 +479,7 @@ function operatorButtonClick(event) {
 
     // 3 - check if it should operate
     // operate if there is an operator and two stored values
+    
     if  (operator && (currentInput || currentInput == 0) && 
     (previousValue || previousValue == 0)) {
         // run operation
@@ -386,6 +489,14 @@ function operatorButtonClick(event) {
         // that value and operator, or just the previous result
         showDisplayCalculation();
     }
+    
+
+    // if  (previousOperator && (currentInput || currentInput == 0) && 
+    // (previousValue || previousValue == 0)) {
+    //     operate(previousOperator, previousValue, currentInput);
+    // } else {
+    //     showDisplayCalculation();
+    // }
 
 
     /* if the operator here then the following clicks will 
@@ -394,6 +505,12 @@ function operatorButtonClick(event) {
     // operator = operations[event.target.id];
     // console.log(`operator is: ${operator}`);
     // need to redisplay calculation
+    // showDisplayCalculation();
+
+
+    // if(event.target.id !== '') {
+    //     operator = operations[event.target.id];
+    // }
     // showDisplayCalculation();
 
 
