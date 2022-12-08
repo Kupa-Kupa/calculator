@@ -730,6 +730,7 @@ function reset() {
     currentInput = null;
     previousValue = null;
     operator = null;
+    previousOperator = null;
     result = null;
     displayArray = [];
 
@@ -742,6 +743,7 @@ function reset() {
     console.log(`currentInput is: ${currentInput}`);
     console.log(`previousValue is: ${previousValue}`);
     console.log(`operator is: ${operator}`);
+    console.log(`previoiusOperator is: ${operator}`);
     console.log(`result is: ${result}`);
     console.log(`displayArray is:`);
     console.log(displayArray);
