@@ -160,26 +160,32 @@ nineButton.addEventListener('click', event => {
 // for operator buttons
 
 divideButton.addEventListener('click', event => {
-    operatorButtonClick(event) 
+    console.log(`${event.target.id} button clicked`);
+    operatorButtonClick(event);
 });
 
 timesButton.addEventListener('click', event => {
-    operatorButtonClick(event) 
+    console.log(`${event.target.id} button clicked`);
+    operatorButtonClick(event);
 });
 
 minusButton.addEventListener('click', event => {
-    operatorButtonClick(event) 
+    console.log(`${event.target.id} button clicked`);
+    operatorButtonClick(event);
 });
 
 plusButton.addEventListener('click', event => {
-    operatorButtonClick(event) 
+    console.log(`${event.target.id} button clicked`);
+    operatorButtonClick(event);
 });
 
 powerButton.addEventListener('click', event => {
-    operatorButtonClick(event) 
+    console.log(`${event.target.id} button clicked`);
+    operatorButtonClick(event);
 });
 
 modButton.addEventListener('click', event => {
+    console.log(`${event.target.id} button clicked`);
     operatorButtonClick(event);
 });
 
@@ -188,15 +194,18 @@ modButton.addEventListener('click', event => {
 // for equals button
 
 equalsButton.addEventListener('click', event => {
+    console.log(`${event.target.id} button clicked`);
     equals();
 });
 
 
 backspaceButton.addEventListener('click', event => {
+    console.log(`${event.target.id} button clicked`);
     backspace();
 });
 
 deleteButton.addEventListener('click', event => {
+    console.log(`${event.target.id} button clicked`);
     reset();
 });
 
@@ -235,38 +244,183 @@ function mod(num1, num2) {
 
 function equals() {
 
-    previousValue = currentInput;
+    console.log(`operator is: ${operator}`);
+    console.log(`currentInput is: ${currentInput}`);
     console.log(`previousValue is: ${previousValue}`);
 
-    // currentInput = null;
+    // 1 - check if it should operate
+    // operate if there is an operator and two stored values
+    if  (operator && (currentInput || currentInput == 0) && 
+    (previousValue || previousValue == 0)) {
+        // run operation
+        operate(operator, previousValue, currentInput);
+    } else {
+        // if there is only one stored value, display:
+        // that value and operator, or just the previous result
+        showDisplayCalculation();
+        console.log(`showDisplayCalculation: ${displayCalculation.textContent}`);
+    }
 
-    // this makes currentInput  = 0 when equals in pressed twice in a row
-    currentInput = Number(displayArray.join(''));
+    // 2 - set previousValue
+    // if there is current input move it to previousValue
+    if (currentInput !== null) {
+        previousValue = currentInput;
+        console.log(`currentInput moved to previousValue`);
+        console.log(`previousValue is now: ${previousValue}`);
+    } else {
+        console.log(`no currentInput value`);
+        console.log(`previousValue is still: ${previousValue}`);
+    }
 
-    // makes currentInput  = previous result 
-    // currentInput = Number(displayInput.textContent);
-    console.log(`currentInput is: ${currentInput}`);
 
+    // 3 - set currentInput to null
+    // reset current input so that new input can be taken
+    currentInput = null;
+    console.log(`currentInput reset to: ${currentInput}`);
+
+
+    // 4 - reset display array
+    // so that new input isn't added to end of old input
     displayArray = [];
+    console.log(`displayArray reset to blank array:`);
     console.log(displayArray);
 
-    operate(operator, previousValue, currentInput);
+    // 5 - reset operator
+    operator = null;
+    console.log(`operator reset to: ${operator}`);
 
+
+
+    // showDisplayCalculation();
+    // console.log(`showDisplayCalculation: ${displayCalculation.textContent}`);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function operatorButtonClick(event) {
+    // 1 - set operator
+
+    /* if the operator is set immediately then the following clicks will 
+    result in a calculation which seems like it would be unwanted?:
+    3 + 6 = 3 + => this will equal 12 */
+    // this seems the better option
+    operator = operations[event.target.id];
+    console.log(`operator is: ${operator}`);
+
+    console.log(`currentInput is: ${currentInput}`);
+    console.log(`previousValue is: ${previousValue}`);
+
+    // 3 - check if it should operate
+    // operate if there is an operator and two stored values
+    if  (operator && (currentInput || currentInput == 0) && 
+    (previousValue || previousValue == 0)) {
+        // run operation
+        operate(operator, previousValue, currentInput);
+    } else {
+        // if there is only one stored value, display:
+        // that value and operator, or just the previous result
+        showDisplayCalculation();
+    }
+
+
+    /* if the operator here then the following clicks will 
+    result in an incorrect calculation being displayed:
+    3 + 6 = 3 + => this show 9 + 3 = 9 */
+    // operator = operations[event.target.id];
+    // console.log(`operator is: ${operator}`);
+    // need to redisplay calculation
     // showDisplayCalculation();
 
 
-    // if  (operator && (currentInput || currentInput == 0) && 
-    // (previousValue || previousValue == 0)) {
 
-    //     // run operation
-    //     operate(operator, previousValue, currentInput);
+    // 4 - set previousValue
+    // if there is current input move it to previousValue
+    if (currentInput !== null) {
+        previousValue = currentInput;
+        console.log(`currentInput moved to previousValue`);
+        console.log(`previousValue is now: ${previousValue}`);
+    } else {
+        console.log(`no currentInput value`);
+        console.log(`previousValue is still: ${previousValue}`);
+    }
 
-    // }
 
-    // if (previousValue === null) {
-    //     previousValue = currentInput;
-    // }
+    // 5 - set currentInput to null
+    // reset current input so that new input can be taken
+    currentInput = null;
+    console.log(`currentInput reset to: ${currentInput}`);
+
+
+    // 6 - reset display array
+    // so that new input isn't added to end of old input
+    displayArray = [];
+    console.log(`displayArray reset to blank array:`);
+    console.log(displayArray);
+
+
+    
+    // 2 - set currentInput - this is now done on number button click
+
+    // currentInput = Number(displayArray.join(''));
+    // currentInput = Number(displayInput.textContent);
+    // console.log(`currentInput is: ${currentInput}`);
 }
+
+
+
+
+/*  operate should be called when operator button 
+or equals button is clicked */
+
+function operate(operator, num1, num2) {
+
+    if (operator === operations.plus) {
+
+        console.log(`calculate result:`);
+
+        result = add(num1, num2);
+        console.log(`result is: ${result}`);
+
+        displayInput.textContent = result;
+
+        showDisplayCalculation();
+
+        // previousValue = null;
+        // console.log(`previous value reset to: ${previousValue}`);
+
+        currentInput = result;
+        console.log(`currentInput set to result`);
+        console.log(`currentInput is: ${currentInput}`);
+
+        console.log(`displayArray is:`);
+        console.log(displayArray);
+
+    } else if (operator === operations.minus) {
+    } else if (operator === operations.times) { 
+    } else if (operator === operations.divide) {
+    } else if (operator === operations.mod) {
+    } else if (operator === operations.power) {
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 function operatorClicked() {
@@ -277,117 +431,36 @@ function operatorClicked() {
 
 
 
-/*  operate should be called when operator button 
-    or equals button is clicked */
-
-function operate(operator, num1, num2) {
-
-    if (operator === operations.plus) {
-
-        result = add(num1, num2);
-        displayInput.textContent = result;
-
-        showDisplayCalculation();
-        previousValue = null;
-        currentInput = result;
-        console.log(displayArray);
-
-    } else if (operator === operations.minus) {
-
-
-
-    } else if (operator === operations.times) {
-
-
-        
-    } else if (operator === operations.divide) {
-
-
-        
-    } else if (operator === operations.mod) {
-
-
-        
-    } else if (operator === operations.power) {
-
-
-        
-    }
-
-}
-
-
-
-function operatorButtonClick(event) {
-    // on operator click
-    // 1 - set operator
-
-    // if (operations[event.target.id] !== '=') {
-    //     operator = operations[event.target.id];
-    // }
-
-    operator = operations[event.target.id];
-    console.log(`operator is: ${operator}`);
-
-
-    // this is now done on number button click
-    // 2 - set currentInput
-
-    // currentInput = Number(displayArray.join(''));
-    // currentInput = Number(displayInput.textContent);
-    // console.log(`currentInput is: ${currentInput}`);
-
-
-
-    // 3 - check if it should operate
-
-    //@@@@@@this needs updating @@@@@@@@@
-
-    if  (operator && (currentInput || currentInput == 0) && 
-    (previousValue || previousValue == 0)) {
-
-        // run operation
-        operate(operator, previousValue, currentInput);
-    } else {
-        showDisplayCalculation();
-    }
-
-    // 4 - set previousValue
-
-    if (currentInput !== null) {
-        previousValue = currentInput;
-    }
-    
-    console.log(`previousValue is: ${previousValue}`);
-
-
-    // 4.1 - set currentInput to null
-
-    currentInput = null;
-    console.log(`currentInput is: ${currentInput}`);
-
-    // 5 - reset display array
-    displayArray = [];
-    console.log(displayArray);
-}
-
-
-
-
 // need to fix display logic based on value of previousValue and
 // currentInput and maybe result?
 function showDisplayCalculation() {
-    if (displayCalculation.textContent === '' && previousValue === null && currentInput !== null) {
+
+
+
+    if (operator && (currentInput || currentInput == 0) && 
+    (previousValue || previousValue == 0) && (result || result == 0)) {
+        
+        displayCalculation.textContent = `${previousValue} ${operator} ${currentInput} = ${result}`;
+
+    } else if (previousValue === null && currentInput !== null && operator !== null) {
 
         displayCalculation.textContent = `${currentInput} ${operator}`;
 
-    } else if (result && currentInput === null) {
+    } else if (previousValue !== null && currentInput === null && operator !== null) {
 
-        displayCalculation.textContent = `${result}`;
+        displayCalculation.textContent = `${previousValue} ${operator}`;
+
+    } else if (previousValue === null && currentInput !== null && operator === null) {
+
+        displayCalculation.textContent = `${currentInput}`;
+
+    } else if (previousValue !== null && currentInput !== null && operator === null) {
+
+        displayCalculation.textContent = `${currentInput}`;
 
     } else {
 
-        displayCalculation.textContent = `${previousValue} ${operator} ${currentInput} = ${result}`;
+        displayCalculation.textContent = `${previousValue}`;
 
     }
 }
@@ -410,6 +483,17 @@ function reset() {
 
     displayInput.textContent = '';
     displayCalculation.textContent = '';
+
+    console.log('\n');
+    console.log('CALCULATOR RESET');
+    console.log('\n');
+    console.log(`currentInput is: ${currentInput}`);
+    console.log(`previousValue is: ${previousValue}`);
+    console.log(`operator is: ${operator}`);
+    console.log(`result is: ${result}`);
+    console.log(`displayArray is:`);
+    console.log(displayArray);
+    console.log('\n');
 }
 
 
