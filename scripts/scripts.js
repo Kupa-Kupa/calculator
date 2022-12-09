@@ -19,8 +19,6 @@ let result = null;
 
 let operator = null;
 
-let previousOperator = null;
-
 let displayArray = [];
 
 
@@ -71,8 +69,6 @@ decimalButton.addEventListener('click', event => {
     if (displayArray.length < 22 && displayArray.indexOf('.') === -1) {
         displayArray.push('.');
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -86,8 +82,6 @@ zeroButton.addEventListener('click', event => {
     } else if (displayArray.length < 22 && (displayArray[0] !== 0) && !displayArray.join('').startsWith('-0')) {
         displayArray.push(0);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -101,8 +95,6 @@ oneButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(1);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -116,8 +108,6 @@ twoButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(2);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -131,8 +121,6 @@ threeButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(3);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -146,8 +134,6 @@ fourButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(4);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -161,8 +147,6 @@ fiveButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(5);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -176,8 +160,6 @@ sixButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(6);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -191,8 +173,6 @@ sevenButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(7);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -206,8 +186,6 @@ eightButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(8);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -221,8 +199,6 @@ nineButton.addEventListener('click', event => {
     if (displayArray.length < 22) {
         displayArray.push(9);
         displayInput.textContent = displayArray.join('');
-        // currentInput = Number(displayArray.join(''));
-        // console.log(`currentInput is: ${currentInput}`);
     }
 });
 
@@ -287,94 +263,6 @@ deleteButton.addEventListener('click', event => {
 
 
 
-
-
-
-
-// KEYBOARD EVENTLISTENERS
-
-
-window.addEventListener('keydown', event => {
-
-    console.log(event);
-    console.log(event.key);
-    console.log(event.code);
-
-    if (event.key === '.' || event.key === '\x00') {
-
-        if (displayArray.length < 22 && displayArray.indexOf('.') === -1) {
-            displayArray.push('.');
-            displayInput.textContent = displayArray.join('');
-            currentInput = Number(displayArray.join(''));
-            console.log(`currentInput is: ${currentInput}`);
-        }
-
-    } else if (event.code === 'Space') {
-        console.log('spacebar');
-        event.preventDefault();
-
-    } else if (event.key === 'Enter' || event.key === '=') {
-        event.preventDefault();
-        equals();
-
-    } else if (event.key === '/') {
-        event.preventDefault();
-
-        operator = operations['divide'];
-        // console.log(operator);
-        // console.log(event.target);
-        // console.log(event.target.id);
-        operatorButtonClick(event);
-
-    } else if (event.key === '*') {
-        event.preventDefault();
-
-        operator = operations['times'];
-        operatorButtonClick(event);
-
-    } else if (event.key === '+') {
-        event.preventDefault();
-
-        operator = operations['plus'];
-        operatorButtonClick(event);
-
-    } else if (event.key === '-') {
-        event.preventDefault();
-
-        operator = operations['minus'];
-        operatorButtonClick(event);
-
-    } else if (Number(event.key) === 0) {
-
-        if (displayArray.length < 22 && displayArray[0] !== 0) {
-            displayArray.push(0);
-            displayInput.textContent = displayArray.join('');
-            currentInput = Number(displayArray.join(''));
-            console.log(`currentInput is: ${currentInput}`);
-        }
-
-    } else if (Number(event.key) > 0) {
-
-        if(displayArray[0] === 0 && displayArray[1] !== '.') {
-            displayArray.pop();
-        }
-        
-        if (displayArray.length < 22) {
-            displayArray.push(Number(event.key));
-            displayInput.textContent = displayArray.join('');
-            currentInput = Number(displayArray.join(''));
-            console.log(`currentInput is: ${currentInput}`);
-        }
-    }
-    
-});
-
-
-
-
-
-
-
 // FUNCTIONS
 
 // operators
@@ -408,11 +296,12 @@ function mod(num1, num2) {
 }
 
 
-// equals
+
+// on equals button click
 
 function equals(event) {
 
-    // 1 - Set current input i.e. num 1 = 
+    // 1 - Set current input
 
     if (displayArray.join('') === '') {
         currentInput = null;
@@ -432,11 +321,6 @@ function equals(event) {
         console.log(`run operate on: ${previousValue} ${operator} ${currentInput}`);
         operate(operator, previousValue, currentInput);
     }
-    // else {
-    //     // if there is only one stored value, display:
-    //     // that value and operator, or just the previous result
-    //     showDisplayCalculation();
-    // }
 
     showDisplayCalculation();
     console.log(`operator is: ${operator}`);
@@ -478,87 +362,11 @@ function equals(event) {
     console.log(`displayArray reset to blank array:`);
     console.log(displayArray);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // console.log(`operator is: ${operator}`);
-    // console.log(`currentInput is: ${currentInput}`);
-    // console.log(`previousValue is: ${previousValue}`);
-
-    // // 1 - check if it should operate
-    // // operate if there is an operator and two stored values
-    // if  (operator && (currentInput || currentInput == 0) && 
-    // (previousValue || previousValue == 0)) {
-    //     // run operation
-    //     operate(operator, previousValue, currentInput);
-    // } else {
-    //     // if there is only one stored value, display:
-    //     // that value and operator, or just the previous result
-    //     showDisplayCalculation();
-    //     console.log(`showDisplayCalculation: ${displayCalculation.textContent}`);
-    // }
-
-    // // 2 - set previousValue
-    // // if there is current input move it to previousValue
-    // if (currentInput !== null) {
-    //     previousValue = currentInput;
-    //     console.log(`currentInput moved to previousValue`);
-    //     console.log(`previousValue is now: ${previousValue}`);
-    // } else {
-    //     console.log(`no currentInput value`);
-    //     console.log(`previousValue is still: ${previousValue}`);
-    // }
-
-
-    // // 3 - set currentInput to null
-    // // reset current input so that new input can be taken
-    // currentInput = null;
-    // console.log(`currentInput reset to: ${currentInput}`);
-
-
-    // // 4 - reset display array
-    // // so that new input isn't added to end of old input
-    // displayArray = [];
-    // console.log(`displayArray reset to blank array:`);
-    // console.log(displayArray);
-
-    // // 5 - reset operator
-    // operator = null;
-    // console.log(`operator reset to: ${operator}`);
-
-
-    // if (previousValue === 'undefined mate') {
-    //     reset();
-    //     displayCalculation.textContent = `That's undefined mate`;
-    // }
-
-
-    // // showDisplayCalculation();
-    // // console.log(`showDisplayCalculation: ${displayCalculation.textContent}`);
-
 }
 
 
 
-
-
-
-
-
-
-
-
+// on operator button click
 
 function operatorButtonClick(event) {
 
@@ -582,11 +390,6 @@ function operatorButtonClick(event) {
         console.log(`run operate on: ${previousValue} ${operator} ${currentInput}`);
         operate(operator, previousValue, currentInput);
     }
-    // else {
-    //     // if there is only one stored value, display:
-    //     // that value and operator, or just the previous result
-    //     showDisplayCalculation();
-    // }
 
     showDisplayCalculation();
     console.log(`operator is: ${operator}`);
@@ -635,112 +438,15 @@ function operatorButtonClick(event) {
     console.log(`displayArray reset to blank array:`);
     console.log(displayArray);
 
-
-        
-    // // 1 - set operator
-
-    // /* if the operator is set immediately then the following clicks will 
-    // result in a calculation which seems like it would be unwanted?:
-    // 3 + 6 = 3 + => this will equal 12 */
-    // // this seems the better option
-    // /* looks like it's actually a big issue
-    // The following clicks will result in an unexpected calculation:
-    // 3 + 3 * => this will equal 3 * 3 */
-
-    // // previousOperator = operator;
-    // // console.log(`previousOperator is: ${previousOperator}`);
-
-    // if(event.target.id !== '') {
-    //     operator = operations[event.target.id];
-    // }
-
-    
-
-    // console.log(`operator is: ${operator}`);
-
-    // console.log(`currentInput is: ${currentInput}`);
-    // console.log(`previousValue is: ${previousValue}`);
-
-    // // 3 - check if it should operate
-    // // operate if there is an operator and two stored values
-    
-    // if  (operator && (currentInput || currentInput == 0) && 
-    // (previousValue || previousValue == 0)) {
-    //     // run operation
-    //     operate(operator, previousValue, currentInput);
-    // } else {
-    //     // if there is only one stored value, display:
-    //     // that value and operator, or just the previous result
-    //     showDisplayCalculation();
-    // }
-    
-
-    // // if  (previousOperator && (currentInput || currentInput == 0) && 
-    // // (previousValue || previousValue == 0)) {
-    // //     operate(previousOperator, previousValue, currentInput);
-    // // } else {
-    // //     showDisplayCalculation();
-    // // }
-
-
-    // /* if the operator here then the following clicks will 
-    // result in an incorrect calculation being displayed:
-    // 3 + 6 = 3 + => this show 9 + 3 = 9 */
-    // // operator = operations[event.target.id];
-    // // console.log(`operator is: ${operator}`);
-    // // need to redisplay calculation
-    // // showDisplayCalculation();
-
-
-    // // if(event.target.id !== '') {
-    // //     operator = operations[event.target.id];
-    // // }
-    // // showDisplayCalculation();
-
-
-
-    // // 4 - set previousValue
-    // // if there is current input move it to previousValue
-    // if (currentInput !== null) {
-    //     previousValue = currentInput;
-    //     console.log(`currentInput moved to previousValue`);
-    //     console.log(`previousValue is now: ${previousValue}`);
-    // } else {
-    //     console.log(`no currentInput value`);
-    //     console.log(`previousValue is still: ${previousValue}`);
-    // }
-
-
-    // // 5 - set currentInput to null
-    // // reset current input so that new input can be taken
-    // currentInput = null;
-    // console.log(`currentInput reset to: ${currentInput}`);
-
-
-    // // 6 - reset display array
-    // // so that new input isn't added to end of old input
-    // displayArray = [];
-    // console.log(`displayArray reset to blank array:`);
-    // console.log(displayArray);
-
-
-    // if (previousValue === 'undefined mate') {
-    //     reset();
-    //     displayCalculation.textContent = `That's undefined mate`;
-    // }
-    
-    // // 2 - set currentInput - this is now done on number button click
-
-    // // currentInput = Number(displayArray.join(''));
-    // // currentInput = Number(displayInput.textContent);
-    // // console.log(`currentInput is: ${currentInput}`);
 }
 
 
 
 
-/*  operate should be called when operator button 
-or equals button is clicked */
+/*  operate is called when the equals button or an operator button 
+    is clicked there is a value for: 
+    operator, previousValue and currentInput
+*/
 
 function operate(operator, num1, num2) {
 
@@ -755,13 +461,6 @@ function operate(operator, num1, num2) {
 
         showDisplayCalculation();
 
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
-
     } else if (operator === operations.minus) {
 
         console.log(`calculate result:`);
@@ -772,13 +471,6 @@ function operate(operator, num1, num2) {
         displayInput.textContent = result;
 
         showDisplayCalculation();
-
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
 
     } else if (operator === operations.times) {
 
@@ -791,13 +483,6 @@ function operate(operator, num1, num2) {
 
         showDisplayCalculation();
 
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
-
     } else if (operator === operations.divide) {
 
         console.log(`calculate result:`);
@@ -808,13 +493,6 @@ function operate(operator, num1, num2) {
         displayInput.textContent = result;
 
         showDisplayCalculation();
-
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
 
     } else if (operator === operations.mod) {
 
@@ -827,13 +505,6 @@ function operate(operator, num1, num2) {
 
         showDisplayCalculation();
 
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
-
     } else if (operator === operations.power) {
 
         console.log(`calculate result:`);
@@ -845,25 +516,14 @@ function operate(operator, num1, num2) {
 
         showDisplayCalculation();
 
-        // currentInput = result;
-        // console.log(`currentInput set to result`);
-        // console.log(`currentInput is: ${currentInput}`);
-
-        // console.log(`displayArray is:`);
-        // console.log(displayArray);
-
     }
 }
 
 
 
+// Display the last calculation
 
-
-// need to fix display logic based on value of previousValue and
-// currentInput and maybe result?
 function showDisplayCalculation() {
-
-
 
     if (operator && (currentInput || currentInput == 0) && 
     (previousValue || previousValue == 0) && (result || result == 0)) {
@@ -871,53 +531,18 @@ function showDisplayCalculation() {
         displayCalculation.textContent = `${previousValue} ${operator} ${currentInput} = ${result}`;
         console.log(`displaycalculation is: ${displayCalculation.textContent}`);
 
-    } /* else if (previousValue === null && currentInput !== null && operator !== null) {
+    } 
 
-        displayCalculation.textContent = `${currentInput} ${operator}`;
-
-    } else if (previousValue !== null && currentInput === null && operator !== null) {
-
-        displayCalculation.textContent = `${previousValue} ${operator}`;
-
-    } else if (previousValue === null && currentInput !== null && operator === null) {
-
-        displayCalculation.textContent = `${currentInput}`;
-
-    } else if (previousValue !== null && currentInput !== null && operator === null) {
-
-        displayCalculation.textContent = `${currentInput}`;
-
-    } else if (previousValue === null && currentInput === null && operator !== null && result === null) {
-
-        displayCalculation.textContent = ``;
-
-    } else if (previousValue === null && currentInput === null && operator === null && result === null) {
-
-        displayCalculation.textContent = ``;
-
-    } else {
-
-        displayCalculation.textContent = `${previousValue}`;
-
-    }
-
-    */
 }
 
 
 
-
-
-
-
-
-
+// reset calculator
 
 function reset() {
     currentInput = null;
     previousValue = null;
     operator = null;
-    previousOperator = null;
     result = null;
     displayArray = [];
 
@@ -938,16 +563,100 @@ function reset() {
 }
 
 
+
+// remove last input value
+
 function backspace() {
 
     displayArray.pop();
     displayInput.textContent = displayArray.join('');
 
-    // if (displayArray.length === 0) {
-    //     currentInput = null;
-    // } else {
-    //     currentInput = Number(displayArray.join(''));
-    // }
-
-    // console.log(`currentInput is: ${currentInput}`);
 }
+
+
+
+
+
+
+
+
+
+
+
+// KEYBOARD EVENTLISTENER
+
+
+// window.addEventListener('keydown', event => {
+
+//     console.log(event);
+//     console.log(event.key);
+//     console.log(event.code);
+
+//     if (event.key === '.' || event.key === '\x00') {
+
+//         if (displayArray.length < 22 && displayArray.indexOf('.') === -1) {
+//             displayArray.push('.');
+//             displayInput.textContent = displayArray.join('');
+//             currentInput = Number(displayArray.join(''));
+//             console.log(`currentInput is: ${currentInput}`);
+//         }
+
+//     } else if (event.code === 'Space') {
+//         console.log('spacebar');
+//         event.preventDefault();
+
+//     } else if (event.key === 'Enter' || event.key === '=') {
+//         event.preventDefault();
+//         equals();
+
+//     } else if (event.key === '/') {
+//         event.preventDefault();
+
+//         operator = operations['divide'];
+//         // console.log(operator);
+//         // console.log(event.target);
+//         // console.log(event.target.id);
+//         operatorButtonClick(event);
+
+//     } else if (event.key === '*') {
+//         event.preventDefault();
+
+//         operator = operations['times'];
+//         operatorButtonClick(event);
+
+//     } else if (event.key === '+') {
+//         event.preventDefault();
+
+//         operator = operations['plus'];
+//         operatorButtonClick(event);
+
+//     } else if (event.key === '-') {
+//         event.preventDefault();
+
+//         operator = operations['minus'];
+//         operatorButtonClick(event);
+
+//     } else if (Number(event.key) === 0) {
+
+//         if (displayArray.length < 22 && displayArray[0] !== 0) {
+//             displayArray.push(0);
+//             displayInput.textContent = displayArray.join('');
+//             currentInput = Number(displayArray.join(''));
+//             console.log(`currentInput is: ${currentInput}`);
+//         }
+
+//     } else if (Number(event.key) > 0) {
+
+//         if(displayArray[0] === 0 && displayArray[1] !== '.') {
+//             displayArray.pop();
+//         }
+        
+//         if (displayArray.length < 22) {
+//             displayArray.push(Number(event.key));
+//             displayInput.textContent = displayArray.join('');
+//             currentInput = Number(displayArray.join(''));
+//             console.log(`currentInput is: ${currentInput}`);
+//         }
+//     }
+    
+// });
