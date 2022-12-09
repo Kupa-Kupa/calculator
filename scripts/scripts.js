@@ -372,6 +372,7 @@ function equals(event) {
 
 
 
+
 // on operator button click
 
 function operatorButtonClick(event) {
@@ -414,6 +415,9 @@ function operatorButtonClick(event) {
     
     if (previousValue === null) {
         displayCalculation.textContent = `${currentInput} ${operator}`;
+        console.log(`displaycalculation is: ${displayCalculation.textContent}`);
+    } else if (currentInput === null) {
+        displayCalculation.textContent = `${previousValue} ${operator}`;
         console.log(`displaycalculation is: ${displayCalculation.textContent}`);
     }
 
