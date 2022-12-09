@@ -413,11 +413,14 @@ function operatorButtonClick(event) {
     console.log(`operator is set to last operator clicked: ${operator}`);
 
     
-    if (previousValue === null) {
-        displayCalculation.textContent = `${currentInput} ${operator}`;
+    if (previousValue === null && currentInput === null) {
+        displayCalculation.textContent = ``;
         console.log(`displaycalculation is: ${displayCalculation.textContent}`);
-    } else if (currentInput === null) {
+    } else if (currentInput === null && previousValue !== null) {
         displayCalculation.textContent = `${previousValue} ${operator}`;
+        console.log(`displaycalculation is: ${displayCalculation.textContent}`);
+    } else if (previousValue === null) {
+        displayCalculation.textContent = `${currentInput} ${operator}`;
         console.log(`displaycalculation is: ${displayCalculation.textContent}`);
     }
 
