@@ -218,7 +218,7 @@ timesButton.addEventListener('click', event => {
 
 minusButton.addEventListener('click', event => {
     console.log(`${event.target.id} button clicked`);
-    if (displayArray.length === 0) {
+    if (displayArray.length === 0 && operator !== '=') {
         displayArray.push('-');
         displayInput.textContent = displayArray.join('');
     } else {
@@ -301,6 +301,9 @@ function mod(num1, num2) {
 
 function equals(event) {
 
+    console.log(`displayArray is:`);
+    console.log(displayArray);
+
     // 1 - Set current input
 
     if (displayArray.join('') === '') {
@@ -362,6 +365,9 @@ function equals(event) {
     console.log(`displayArray reset to blank array:`);
     console.log(displayArray);
 
+
+    console.log(`displayArray is:`);
+    console.log(displayArray);
 }
 
 
@@ -369,6 +375,9 @@ function equals(event) {
 // on operator button click
 
 function operatorButtonClick(event) {
+
+    console.log(`displayArray is:`);
+    console.log(displayArray);
 
     // 1 - Set current input i.e. num 1 = 
 
@@ -436,6 +445,10 @@ function operatorButtonClick(event) {
 
     displayArray = [];
     console.log(`displayArray reset to blank array:`);
+    console.log(displayArray);
+
+
+    console.log(`displayArray is:`);
     console.log(displayArray);
 
 }
